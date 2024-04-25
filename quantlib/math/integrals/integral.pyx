@@ -1,4 +1,5 @@
 include '../../types.pxi'
+from libcpp.functional cimport function
 cimport quantlib.math.integrals._integral as _integral
 from quantlib.handle cimport shared_ptr
 
@@ -9,8 +10,12 @@ cdef class Integrator:
                 new _integral.Integrator(absoluteAccuracy, maxEvaluations)
         )
 
-    def __call__(self, f, Real a, Real b):
-        self._thisptr.get().call(f, a, b)
+    def __call__(self, object f, Real a, Real b):
+        # TODO: add is callable and arg runtime assertions
+        # <void*>f
+        cdef function[double(double)] _f(*f)
+        self._thisptr.get().call(_f, a, b)
+        del _f
     
     @property
     def absolute_accuracy(self):

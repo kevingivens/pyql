@@ -50,8 +50,8 @@ cdef class GaussKronrodAdaptive(Integrator):
     #    points Gauss-Kronrod integration rule.  This is more robust in
     #    that it allows to integrate less smooth functions (though
     #    singular functions should be integrated using dedicated
-    #    algorithms) but less efficient beacuse it does not reuse
-    #    precedently computed points during computation steps.
+    #    algorithms) but less efficient because it does not reuse
+    #    previously computed points during computation steps.
     #
     #    References:
     #
