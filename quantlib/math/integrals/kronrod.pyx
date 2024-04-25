@@ -1,7 +1,8 @@
 include '../../types.pxi'
 from quantlib.handle cimport shared_ptr
-cimport quantlib.math.integrals._integral as _integral
-cimport quantlib.math.integrals._kronrod as _kronrod
+from quantlib.math.integrals.integral cimport Integrator
+from . cimport _integral as _integral
+from . cimport _kronrod as _kronrod
 
 cdef class GaussKronrodNonAdaptive(Integrator):
     """ 
@@ -42,7 +43,7 @@ cdef class GaussKronrodNonAdaptive(Integrator):
         (<_kronrod.GaussKronrodNonAdaptive*>self._thisptr.get()).setAbsoluteAccuracy(abs_accuracy)
     
 
-cdef class GaussKronrodNonAdaptive(Integrator):
+cdef class GaussKronrodAdaptive(Integrator):
     """ 
     # Integral of a 1-dimensional function using the Gauss-Kronrod methods
     # This class provide an adaptive integration procedure using 15
@@ -62,6 +63,6 @@ cdef class GaussKronrodNonAdaptive(Integrator):
     #
     """
     def __init__(self, Real tolerance, Size maxFunctionEvaluations):
-        self._thisptr = shared_ptr[_integral.Integral](
-                new _kronrod.GaussKronrodNonAdaptive(tolerance, maxFunctionEvaluations)
+        self._thisptr = shared_ptr[_integral.Integrator](
+                new _kronrod.GaussKronrodAdaptive(tolerance, maxFunctionEvaluations)
         )

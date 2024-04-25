@@ -7,8 +7,9 @@ cdef extern from 'ql/math/integrals/integral.hpp' namespace 'QuantLib':
     cdef cppclass Integrator:
         Integrator(Real absoluteAccuracy, Size maxEvaluations) except +
         
-        Real call "operator()"(function[Real(Real) noexcept]& f, Real a, Real b)
+        # Real call "operator()"(function[Real(Real) noexcept]& f, Real a, Real b)
         # Real call "operator()"(function[Real(Real)]& f, Real a, Real b)
+        Real call "operator()"(function[double(double)]& f, Real a, Real b)
 
         void setAbsoluteAccuracy(Real)
         void setMaxEvaluations(Size)

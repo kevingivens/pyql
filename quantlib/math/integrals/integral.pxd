@@ -1,4 +1,5 @@
 cimport quantlib.math.integrals._integral as _integral
+from quantlib.handle cimport shared_ptr
 
 cdef class Integrator:
-    cdef _integral.Integrator _thisptr
+    cdef shared_ptr[_integral.Integrator] _thisptr
